@@ -62,6 +62,9 @@ f = sample_freq * (0:(L/2))/L;
 fig_fft = figure;
 figure(fig_fft);
 plot(f,P1);
+xlabel("Frequency (Hz)");
+ylabel("Amplitude");
+title("FT of the Calibrated Data in the Z Axis");
 
 
 

@@ -51,21 +51,12 @@ calibrated_data(:,3) = calibrated_data(:,3) - 1;
 %Need FFT, peak finder, ploting - which way do we want to do this, add all
 %the values together, average XYZ, just take XYZ all seperatley??
 
-%FFT of just z for now, possible to do for other axes? - Following method
-%in the MATLAB documentation for FFTs
-freq_data = fft(calibrated_data(:,3));
-
-P2 = abs(freq_data/L); %2 Sided spectrum
-P1 = P2(1:L/2+1); %1 Sided spectrum based on P2 and even-valued L
-P1(2:end-1) = 2*P1(2:end-1);
-
-f = sample_freq * (0:(L/2))/L;
-
+[fft_x, fft_y] = spectral_analysis(calibrated_data, sample_freq);
 
 %Plot the fft
 fig_fft = figure;
 figure(fig_fft);
-plot(f,P1);
+plot(fft_x, fft_y);
 xlabel("Frequency (Hz)");
 ylabel("Amplitude");
 title("FT of the Calibrated Data in the Z Axis");

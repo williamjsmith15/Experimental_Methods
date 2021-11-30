@@ -23,8 +23,7 @@ fprintf("Opening %s\n\n", fname_calibration)
 calibration_matrix = table2array(readtable(fullfile(path_calibration, fname_calibration)));
 
 %Apply the calibration
-data(:,4) = 1;
-calibrated_data = data * calibration_matrix;
+calibrated_data = calibrate(data, calibration_matrix);
 
 %Plot the calibrated data and save plot to folder of fname_data
 fig_raw = figure;
@@ -32,13 +31,11 @@ figure(fig_raw);
 hold on;
 plot(t, calibrated_data(:,1));
 plot(t, calibrated_data(:,2));
-plot(t, calibrated_data(:,3));
+plot(t, calibrated_data(:,3) + 1); % +1 due to removing gravity from the z-axis
 xlabel("Time (s)");
 ylabel("Acceleration (g)");
 title("Raw Calibrated Data Plot");
 
-%Normalise the Z Axis to 0 (As only looking at the acceleration extra to g)
-calibrated_data(:,3) = calibrated_data(:,3) - 1;
 
 
 
@@ -48,12 +45,12 @@ calibrated_data(:,3) = calibrated_data(:,3) - 1;
 
 
 %------SPECTRAL ANALYSIS OF DATA------
-%Need FFT, peak finder, ploting - which way do we want to do this, add all
-%the values together, average XYZ, just take XYZ all seperatley??
+%? Add peak finder (easier error analysis
 
+%Do FFT of the data (adding all XYZ components together to get one FT)
 [fft_x, fft_y] = spectral_analysis(calibrated_data, sample_freq);
 
-%Plot the fft
+%Plot the FT
 fig_fft = figure;
 figure(fig_fft);
 plot(fft_x, fft_y);

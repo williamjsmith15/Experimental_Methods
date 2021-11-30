@@ -45,7 +45,7 @@ title("Raw Calibrated Data Plot");
 
 
 %------SPECTRAL ANALYSIS OF DATA------
-%? Add peak finder (easier error analysis
+%? Add peak finder (easier error analysis)
 
 %Do FFT of the data (adding all XYZ components together to get one FT)
 [fft_x, fft_y] = spectral_analysis(calibrated_data, sample_freq);

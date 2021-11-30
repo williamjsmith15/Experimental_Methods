@@ -1,11 +1,12 @@
 
 %------INPUT DATA------
-fprintf("Select the raw data file to be analysed.\n\n")
+fprintf("Select the raw data file to be analysed.\n")
 [fname_data, path_data] = uigetfile('*.csv');
+fprintf("Opening %s\n\n", fname_data)
 data = readtable(fullfile(path_data, fname_data)); %? Also use csvread if this doesnt work...
 
 %Sample freq, time period etc
-sample_freq = input("Enter the sampling freq of the data (Hz).");
+sample_freq = input("Enter the sampling freq of the data (Hz): ");
 T = 1/sample_freq;
 L = length(data(:,1)); %Length of data
 t = (0:L-1) * T; %Time vector (s)
@@ -16,8 +17,9 @@ t = (0:L-1) * T; %Time vector (s)
 
 %------APPLY CALIBRATION------
 %Import the calibration file
-fprintf("Select the calibration data file to be analysed.\n\n")
+fprintf("Select the calibration data file to be analysed.\n")
 [fname_calibration, path_calibration] = uigetfile('*.csv');
+fprintf("Opening %s\n\n", fname_calibration)
 calibration_matrix = readtable(fullfile(path_calibration, fname_calibration));
 
 %Apply the calibration

@@ -4,6 +4,5 @@ function calibrated_data = calibrate(data, calibration_matrix)
 
 data(:,4) = 1;
 temp = data * calibration_matrix;
-temp = temp(:,3) - 1;
 calibrated_data = temp;
 end

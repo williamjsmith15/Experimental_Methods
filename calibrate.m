@@ -3,6 +3,7 @@ function calibrated_data = calibrate(data, calibration_matrix)
 % calculated calibration matrix and removes the bias from gravity
 
 data(:,4) = 1;
+data(:,3) = -data(:,3);
 temp = data * calibration_matrix;
 calibrated_data = temp;
 end

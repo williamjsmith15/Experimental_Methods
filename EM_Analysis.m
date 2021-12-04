@@ -49,7 +49,9 @@ title("Raw Calibrated Data Plot");
 
 
 
-
+%------RESOLVE INTO VERTICAL AND HORIZOLTAL COMPENENTS------
+%Find angle of accelerometer from average of all the data
+%Take calibrated data and place into array of just vertical / horizontal
 
 
 

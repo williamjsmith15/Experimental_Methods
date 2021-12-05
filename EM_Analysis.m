@@ -1,6 +1,9 @@
 %Close all prev figures
 close all
 
+
+
+
 %------INPUT DATA------
 fprintf("Select the raw data file to be analysed.\n")
 [fname_data, path_data] = uigetfile('*.csv');
@@ -12,6 +15,8 @@ sample_freq = input("Enter the sampling freq of the data (Hz): ");
 T = 1/sample_freq;
 L = length(raw_data(:,1)); %Length of data
 t = (0:L-1) * T; %Time vector (s)
+
+
 
 
 %------APPLY CALIBRATION------
@@ -45,6 +50,8 @@ grid on;
 xlabel("Time (s)");
 ylabel("Acceleration (g)");
 title("Raw Calibrated Data Plot");
+
+
 
 
 %------DECIDE RANGE OF DATA TO ANALYSE FROM------
@@ -88,6 +95,7 @@ end
 
 
 
+
 %------RESOLVE INTO VERTICAL AND HORIZOLTAL COMPENENTS------
 %Find angle of accelerometer from average of all the data
 %Take calibrated data and place into array of just vertical / horizontal
@@ -112,8 +120,8 @@ title("Horizontal Acceleration Plot");
 
 
 
+
 %------SPECTRAL ANALYSIS OF DATA------
-%? Add peak finder (easier error analysis)
 %Do FFTs on both componenets
 [ver_fft_x, ver_fft_y, ver_principal_freq, ver_fft_peaks] = spectral_analysis(resolved_data(:,1), sample_freq); %Vertical
 [hor_fft_x, hor_fft_y, hor_principal_freq, hor_fft_peaks] = spectral_analysis(resolved_data(:,2), sample_freq); %Horizontal
@@ -135,6 +143,8 @@ grid on;
 xlabel("Frequency (Hz)");
 ylabel("Amplitude");
 title("FT of the Calibrated Data in the Horizontal Axis");
+
+
 
 
 %------ACCELERATION ANALYSIS OF DATA-------
@@ -162,10 +172,10 @@ title("Plot of the Acceleration Peaks in the Horizontal Axis");
 
 
 
+
 %------SAVE DATA------
 %Save figures
 fname = erase(fname_data, '.csv'); %Define new filename such that it matches the data file
-
 saveas(fig_raw, fullfile(path_data, append(fname, ' Calibrated Data.png')));
 saveas(ver_acc, fullfile(path_data, append(fname, ' Vertical Acceleration.png')));
 saveas(hor_acc, fullfile(path_data, append(fname, ' Horizontal Acceleration.png')));
@@ -173,9 +183,9 @@ saveas(ver_fft_fig, fullfile(path_data, append(fname, ' Vertical FT.png')));
 saveas(hor_fft_fig, fullfile(path_data, append(fname, ' Horizontal FT.png')));
 saveas(ver_acc_fig, fullfile(path_data, append(fname, ' Vertical Acc.png')));
 saveas(hor_acc_fig, fullfile(path_data, append(fname, ' Horizontal Acc.png')));
+
 %Save rest of data manually in .csv file after error analysis
 temp_table = table(hor_acc_max, hor_principal_freq(1,2), ver_acc_max, ver_principal_freq(1,2), 'VariableNames', {'Horizontal Acceleration Max', 'Horizontal Principal Frequency', 'Vertical Acceleration Max', 'Vertical Principal Frequency'});
-
 writetable(temp_table, fullfile(path_data, append(fname, ' Output File.csv')));
 
 

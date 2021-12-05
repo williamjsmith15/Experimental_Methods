@@ -82,12 +82,16 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
         time_start = input("Enter the time at which you want to start the analysis from (s): ");
         time_end = input("Enter the time at which you want to end the analysis at (s): ");
         
-        for i = 1:L
-            if time_start >= t(i) && time_start <= t(i+1)
-                start_posn = i;
+        if time_start < 0 || time_end > max(t) %Some basic error handling for the number inputs
+            break
+        end
+
+        for j = 1:L
+            if time_start >= t(j) && time_start <= t(j+1)
+                start_posn = j;
             end
-            if time_end >= t(i) && time_end <= t(i+1)
-                end_posn = i;
+            if time_end >= t(j) && time_end <= t(j+1)
+                end_posn = j;
             end
         end
         

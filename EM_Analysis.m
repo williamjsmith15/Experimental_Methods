@@ -158,13 +158,13 @@ title("Plot of the Acceleration Peaks in the Horizontal Axis");
 %Save figures
 fname = erase(fname_data, '.csv'); %Define new filename such that it matches the data file
 
-saveas(fig_raw, fullfile(path_data, fname, ' Calibrated Data.png'));
-saveas(ver_acc, fullfile(path_data, fname, ' Vertical Acceleration.png'));
-saveas(hor_acc, fullfile(path_data, fname, ' Horizontal Acceleration.png'));
-saveas(ver_fft_fig, fullfile(path_data, fname, ' Vertical FT.png'));
-saveas(hor_fft_fig, fullfile(path_data, fname, ' Horizontal FT.png'));
-saveas(ver_acc_fig, fullfile(path_data, fname, ' Vertical Acc.png'));
-saveas(hor_acc_fig, fullfile(path_data, fname, ' Horizontal Acc.png'));
+saveas(fig_raw, fullfile(path_data, append(fname, ' Calibrated Data.png')));
+saveas(ver_acc, fullfile(path_data, append(fname, ' Vertical Acceleration.png')));
+saveas(hor_acc, fullfile(path_data, append(fname, ' Horizontal Acceleration.png')));
+saveas(ver_fft_fig, fullfile(path_data, append(fname, ' Vertical FT.png')));
+saveas(hor_fft_fig, fullfile(path_data, append(fname, ' Horizontal FT.png')));
+saveas(ver_acc_fig, fullfile(path_data, append(fname, ' Vertical Acc.png')));
+saveas(hor_acc_fig, fullfile(path_data, append(fname, ' Horizontal Acc.png')));
 %Save rest of data manually in .csv file after error analysis
 
 

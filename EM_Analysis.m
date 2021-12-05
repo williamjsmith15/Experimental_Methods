@@ -1,12 +1,12 @@
 
 %------INPUT DATA------
 fprintf("Select the raw data file to be analysed.\n")
-[fname_data, path_data] = uigetfile('*.csv');
-fprintf("Opening %s\n\n", fname_data)
-raw_data = table2array(readtable(fullfile(path_data, fname_data)));
+%[fname_data, path_data] = uigetfile('*.csv')
+%fprintf("Opening %s\n\n", fname_data)
+raw_data = table2array(readtable('/Users/williamsmith/Desktop/Data - Bridge 02.12.21/Raw Data/Slow Walk/2.1.csv')); %fullfile(path_data, fname_data)));
 
 %Sample freq, time period etc
-sample_freq = input("Enter the sampling freq of the data (Hz): ");
+sample_freq = 20; %input("Enter the sampling freq of the data (Hz): ");
 T = 1/sample_freq;
 L = length(raw_data(:,1)); %Length of data
 t = (0:L-1) * T; %Time vector (s)
@@ -15,7 +15,7 @@ t = (0:L-1) * T; %Time vector (s)
 %------APPLY CALIBRATION------
 %Import the calibration file folder
 fprintf("Select the folder all the calibration files are in.\n")
-path_cal = uigetdir('*.csv');
+path_cal = '/Users/williamsmith/Desktop/Data - Bridge 02.12.21/Calibrations/Calibration Matricies'; %uigetdir('*.csv')
 files_calibration = dir(fullfile(path_cal, '*.csv'));
 
 cal_matrix = zeros(4,3);
@@ -48,8 +48,8 @@ title("Raw Calibrated Data Plot");
 %Some of the data sets (see 1.1 has the direct feedback of the person
 %jumping folled by just the bridges natural response so only want to
 %analyse the data between certain timesteps
-time_start = input("Enter the time at which you want to start the analysis from: ");
-time_end = input("Enter the time at which you want to end the analysis: ");
+time_start = 7; %input("Enter the time at which you want to start the analysis from: ");
+time_end = 25; %input("Enter the time at which you want to end the analysis: ");
 
 for i = 1:L
     if time_start >= t(i) && time_start <= t(i+1)

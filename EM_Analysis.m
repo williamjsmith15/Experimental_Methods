@@ -196,8 +196,8 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
     saveas(hor_acc, fullfile(path_data, append(fname, ' Horizontal Acceleration.png')));
     saveas(ver_fft_fig, fullfile(path_data, append(fname, ' Vertical FT.png')));
     saveas(hor_fft_fig, fullfile(path_data, append(fname, ' Horizontal FT.png')));
-    saveas(ver_acc_fig, fullfile(path_data, append(fname, ' Vertical Acc.png')));
-    saveas(hor_acc_fig, fullfile(path_data, append(fname, ' Horizontal Acc.png')));
+    saveas(ver_acc_fig, fullfile(path_data, append(fname, ' Vertical Acc Peaks.png')));
+    saveas(hor_acc_fig, fullfile(path_data, append(fname, ' Horizontal Acc Peaks.png')));
     
     %Save rest of data manually in .csv file after error analysis
     temp_table = table(hor_acc_max, hor_principal_freq(1,2), ver_acc_max, ver_principal_freq(1,2), 'VariableNames', {'Horizontal Acceleration Max', 'Horizontal Principal Frequency', 'Vertical Acceleration Max', 'Vertical Principal Frequency'});

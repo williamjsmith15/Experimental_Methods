@@ -64,6 +64,7 @@ chopped_data = calibrated_data(start_posn:end_posn,:);
 L = length(chopped_data(:,1));
 t = (0:L-1) * T;
 
+
 %Plot final data set to be analysed overriding the prev plot
 figure(fig_raw);
 clf(fig_raw);

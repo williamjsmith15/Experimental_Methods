@@ -48,6 +48,9 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
     L = length(raw_data(:,1)); %Length of data
     t = (0:L-1) * T; %Time vector (s)
 
+    %Close all prev figures, stops cluttering of desktop
+    close all
+
 
 
     %------APPLY CALIBRATION------

@@ -52,7 +52,7 @@ title("Raw Calibrated Data Plot");
 %analyse the data between certain timesteps
 
 %Give choice if want to chop dataset
-if input('Do you want to cut down the dataset (ie parts of the data with interference)? (y/n) ') == 'y'
+if string(input('Do you want to cut down the dataset (ie parts of the data with interference)? (y/n) ')) == 'y'
     time_start = input("Enter the time at which you want to start the analysis from (s): ");
     time_end = input("Enter the time at which you want to end the analysis at (s): ");
     
@@ -142,14 +142,14 @@ ver_acc_fig = figure;
 figure(ver_acc_fig);
 plot(ver_acc_peaks(:,2), ver_acc_peaks(:,1));
 xlabel("Time (s)");
-ylabel("Acceleration (g)");
+ylabel("Acceleration (m/s)");
 title("Plot of the Acceleration Peaks in the Vertical Axis");
 
 hor_acc_fig = figure;
 figure(hor_acc_fig);
 plot(hor_acc_peaks(:,2), hor_acc_peaks(:,1));
 xlabel("Time (s)");
-ylabel("Acceleration (g)");
+ylabel("Acceleration (m/s)");
 title("Plot of the Acceleration Peaks in the Horizontal Axis");
 
 

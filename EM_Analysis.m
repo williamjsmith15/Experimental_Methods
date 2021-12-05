@@ -73,17 +73,26 @@ title("Horizontal Acceleration Plot");
 
 %------SPECTRAL ANALYSIS OF DATA------
 %? Add peak finder (easier error analysis)
+%Do FFTs on both componenets
+[vert_fft_x, vert_fft_y] = spectral_analysis(resolved_data(:,1), sample_freq); %Vertical
+[hor_fft_x, hor_fft_y] = spectral_analysis(resolved_data(:,2), sample_freq); %Horizontal
 
-%Do FFT of the data (adding all XYZ components together to get one FT)
-[fft_x, fft_y] = spectral_analysis(calibrated_data, sample_freq);
 
-%Plot the FT
-fig_fft = figure;
-figure(fig_fft);
-plot(fft_x, fft_y);
+%Plot the FTs
+vert_fig_fft = figure;
+figure(vert_fig_fft);
+plot(vert_fft_x, vert_fft_y);
 xlabel("Frequency (Hz)");
 ylabel("Amplitude");
-title("FT of the Calibrated Data in the Z Axis");
+title("FT of the Calibrated Data in the Vertical Axis");
+
+
+hor_fig_fft = figure;
+figure(hor_fig_fft);
+plot(hor_fft_x, hor_fft_y);
+xlabel("Frequency (Hz)");
+ylabel("Amplitude");
+title("FT of the Calibrated Data in the Horizontal Axis");
 
 
 

@@ -53,7 +53,7 @@ title("Raw Calibrated Data Plot");
 %analyse the data between certain timesteps
 
 %Give choice if want to chop dataset
-if string(input('Do you want to cut down the dataset (ie parts of the data with interference)? (y/n) ')) == 'y'
+if input('Do you want to cut down the dataset (ie parts of the data with interference)? (y/n) ') == 'y'
     time_start = input("Enter the time at which you want to start the analysis from (s): ");
     time_end = input("Enter the time at which you want to end the analysis at (s): ");
     
@@ -174,7 +174,9 @@ saveas(hor_fft_fig, fullfile(path_data, append(fname, ' Horizontal FT.png')));
 saveas(ver_acc_fig, fullfile(path_data, append(fname, ' Vertical Acc.png')));
 saveas(hor_acc_fig, fullfile(path_data, append(fname, ' Horizontal Acc.png')));
 %Save rest of data manually in .csv file after error analysis
+temp_table = table(hor_acc_max, hor_principal_freq(1,2), ver_acc_max, ver_principal_freq(1,2), 'VariableNames', {'Horizontal Acceleration Max', 'Horizontal Principal Frequency', 'Vertical Acceleration Max', 'Vertical Principal Frequency'});
 
+writetable(temp_table, fullfile(path_data, append(fname, ' Output File.csv')));
 
 
 

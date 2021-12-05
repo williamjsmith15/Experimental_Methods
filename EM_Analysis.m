@@ -1,9 +1,3 @@
-%Close all prev figures
-close all
-
-
-
-
 %------IMPORT DATA------
 %Import the calibration file folder
 fprintf("Select the folder all the calibration files are in.\n")

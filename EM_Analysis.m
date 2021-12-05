@@ -1,3 +1,5 @@
+%Close all prev figures
+close all
 
 %------INPUT DATA------
 fprintf("Select the raw data file to be analysed.\n")

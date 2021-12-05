@@ -18,6 +18,7 @@ L = length(data);
 t = (0:L-1) * T; %Time vector (s)
 
 data = abs(data); %Only concerned about the ablsolute value of the acceleration
+data = data * 9.80665; %Convert 'gs' to ms^-1
 
 %Find peaks
 [pks, locs] = findpeaks(data, 'MinPeakDistance', 5);
@@ -25,7 +26,8 @@ data = abs(data); %Only concerned about the ablsolute value of the acceleration
 %Assign peaks into an array with their corresponding time value
 peaks = zeros(length(pks), 2);
 for i = 1:length(pks)
-    peaks(i) = [pks(i), t(locs(i))];
+    peaks(i,1) = pks(i);
+    peaks(i,2) = t(locs(i));
 end
 
 %Average and maximum

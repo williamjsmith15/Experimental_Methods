@@ -12,9 +12,6 @@ L = length(raw_data(:,1)); %Length of data
 t = (0:L-1) * T; %Time vector (s)
 
 
-
-
-
 %------APPLY CALIBRATION------
 %Import the calibration file folder
 fprintf("Select the folder all the calibration files are in.\n")
@@ -47,12 +44,42 @@ ylabel("Acceleration (g)");
 title("Raw Calibrated Data Plot");
 
 
+%------DECIDE RANGE OF DATA TO ANALYSE FROM------
+%Some of the data sets (see 1.1 has the direct feedback of the person
+%jumping folled by just the bridges natural response so only want to
+%analyse the data between certain timesteps
+time_start = input("Enter the time at which you want to start the analysis from: ");
+time_end = input("Enter the time at which you want to end the analysis: ");
+
+for i = 1:L
+    if time_start >= t(i) && time_start <= t(i+1)
+        start_posn = i;
+    end
+    if time_end >= t(i) && time_end <= t(i+1)
+        end_posn = i;
+    end
+end
+
+chopped_data = calibrated_data(start_posn:end_posn,:);
+L = length(chopped_data(:,1));
+t = t = (0:L-1) * T
+
+%Plot final data set to be analysed overriding the prev plot
+figure(fig_raw);
+clf(fig_raw);
+hold on;
+plot(t, chopped_data(:,1));
+plot(t, chopped_data(:,2));
+plot(t, chopped_data(:,3));
+xlabel("Time (s)");
+ylabel("Acceleration (g)");
+title("Chopped Calibrated Data Plot");
 
 
 %------RESOLVE INTO VERTICAL AND HORIZOLTAL COMPENENTS------
 %Find angle of accelerometer from average of all the data
 %Take calibrated data and place into array of just vertical / horizontal
-resolved_data = angle_calibrate(calibrated_data);
+resolved_data = angle_calibrate(chopped_data);
 
 %Plot vertical and horizontal on seperate figures
 vert_acc = figure;

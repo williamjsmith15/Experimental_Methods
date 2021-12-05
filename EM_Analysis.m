@@ -111,8 +111,8 @@ title("Horizontal Acceleration Plot");
 %------SPECTRAL ANALYSIS OF DATA------
 %? Add peak finder (easier error analysis)
 %Do FFTs on both componenets
-[ver_fft_x, ver_fft_y, ver_principal_freq] = spectral_analysis(resolved_data(:,1), sample_freq); %Vertical
-[hor_fft_x, hor_fft_y, hor_principal_freq] = spectral_analysis(resolved_data(:,2), sample_freq); %Horizontal
+[ver_fft_x, ver_fft_y, ver_principal_freq, ver_fft_peaks] = spectral_analysis(resolved_data(:,1), sample_freq); %Vertical
+[hor_fft_x, hor_fft_y, hor_principal_freq, hor_fft_peaks] = spectral_analysis(resolved_data(:,2), sample_freq); %Horizontal
 
 
 %Plot the FTs
@@ -154,6 +154,20 @@ title("Plot of the Acceleration Peaks in the Horizontal Axis");
 
 
 
+%------SAVE DATA------
+%Save figures
+fname = erase(fname_data, '.csv'); %Define new filename such that it matches the data file
 
-%------ERROR ANALYSIS------
-%Error handling of above cases...
+saveas(fig_raw, fullfile(path_data, fname, ' Calibrated Data.png'));
+saveas(ver_acc, fullfile(path_data, fname, ' Vertical Acceleration.png'));
+saveas(hor_acc, fullfile(path_data, fname, ' Horizontal Acceleration.png'));
+saveas(ver_fft_fig, fullfile(path_data, fname, ' Vertical FT.png'));
+saveas(hor_fft_fig, fullfile(path_data, fname, ' Horizontal FT.png'));
+saveas(ver_acc_fig, fullfile(path_data, fname, ' Vertical Acc.png'));
+saveas(hor_acc_fig, fullfile(path_data, fname, ' Horizontal Acc.png'));
+%Save rest of data manually in .csv file after error analysis
+
+
+
+
+

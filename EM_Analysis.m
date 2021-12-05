@@ -4,22 +4,7 @@ close all
 
 
 
-%------INPUT DATA------
-fprintf("Select the raw data file to be analysed.\n")
-[fname_data, path_data] = uigetfile('*.csv');
-fprintf("Opening %s\n\n", fname_data)
-raw_data = table2array(readtable(fullfile(path_data, fname_data)));
-
-%Sample freq, time period etc
-sample_freq = input("Enter the sampling freq of the data (Hz): ");
-T = 1/sample_freq;
-L = length(raw_data(:,1)); %Length of data
-t = (0:L-1) * T; %Time vector (s)
-
-
-
-
-%------APPLY CALIBRATION------
+%------IMPORT DATA------
 %Import the calibration file folder
 fprintf("Select the folder all the calibration files are in.\n")
 path_cal = uigetdir('*.csv');
@@ -36,6 +21,22 @@ end
 %Divide by number of elements to get mean
 cal_matrix = cal_matrix / length(files_calibration);
 
+%Import calibration files
+fprintf("Select the raw data file to be analysed.\n")
+[fname_data, path_data] = uigetfile('*.csv');
+fprintf("Opening %s\n\n", fname_data)
+raw_data = table2array(readtable(fullfile(path_data, fname_data)));
+
+%Sample freq, time period etc
+sample_freq = input("Enter the sampling freq of the data (Hz): ");
+T = 1/sample_freq;
+L = length(raw_data(:,1)); %Length of data
+t = (0:L-1) * T; %Time vector (s)
+
+
+
+
+%------APPLY CALIBRATION------
 %Apply the calibration
 calibrated_data = calibrate(raw_data, cal_matrix);
 

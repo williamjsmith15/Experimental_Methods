@@ -83,8 +83,8 @@ title("Chopped Calibrated Data Plot");
 resolved_data = angle_calibrate(chopped_data);
 
 %Plot vertical and horizontal on seperate figures
-vert_acc = figure;
-figure(vert_acc);
+ver_acc = figure;
+figure(ver_acc);
 plot(t, resolved_data(:,1));
 xlabel("Time (s)");
 ylabel("Acceleration (g) normalised about 0");
@@ -102,18 +102,17 @@ title("Horizontal Acceleration Plot");
 %------SPECTRAL ANALYSIS OF DATA------
 %? Add peak finder (easier error analysis)
 %Do FFTs on both componenets
-[vert_fft_x, vert_fft_y] = spectral_analysis(resolved_data(:,1), sample_freq); %Vertical
+[ver_fft_x, ver_fft_y] = spectral_analysis(resolved_data(:,1), sample_freq); %Vertical
 [hor_fft_x, hor_fft_y] = spectral_analysis(resolved_data(:,2), sample_freq); %Horizontal
 
 
 %Plot the FTs
-vert_fig_fft = figure;
-figure(vert_fig_fft);
-plot(vert_fft_x, vert_fft_y);
+ver_fig_fft = figure;
+figure(ver_fig_fft);
+plot(ver_fft_x, ver_fft_y);
 xlabel("Frequency (Hz)");
 ylabel("Amplitude");
 title("FT of the Calibrated Data in the Vertical Axis");
-
 
 hor_fig_fft = figure;
 figure(hor_fig_fft);
@@ -126,6 +125,26 @@ title("FT of the Calibrated Data in the Horizontal Axis");
 
 %------ACCELERATION ANALYSIS OF DATA-------
 %Need Peak finder, see amplitude changes, plotting
+%Get accelerations
+[ver_acc_peaks, ver_acc_max, ver_acc_av] = acceleration_analysis(resolved_data(:,1), sample_freq); %Vertical
+[hor_acc_peaks, hor_acc_max, hor_acc_av] = acceleration_analysis(resolved_data(:,2), sample_freq); %Vertical
+
+%Plot acceleration peaks
+ver_fig_acc = figure;
+figure(ver_fig_acc);
+plot(ver_acc_peaks(:,2), ver_acc_peaks(:,1));
+xlabel("Time (s)");
+ylabel("Acceleration (g)");
+title("Plot of the Acceleration Peaks in the Vertical Axis");
+
+hor_fig_acc = figure;
+figure(hor_fig_acc);
+plot(hor_acc_peaks(:,2), hor_acc_peaks(:,1));
+xlabel("Time (s)");
+ylabel("Acceleration (g)");
+title("Plot of the Acceleration Peaks in the Horizontal Axis");
+
+
 
 
 %------ERROR ANALYSIS------

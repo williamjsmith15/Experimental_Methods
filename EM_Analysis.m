@@ -52,7 +52,22 @@ title("Raw Calibrated Data Plot");
 %------RESOLVE INTO VERTICAL AND HORIZOLTAL COMPENENTS------
 %Find angle of accelerometer from average of all the data
 %Take calibrated data and place into array of just vertical / horizontal
+resolved_data = angle_calibrate(calibrated_data);
 
+%Plot vertical and horizontal on seperate figures
+vert_acc = figure;
+figure(vert_acc);
+plot(t, resolved_data(:,1));
+xlabel("Time (s)");
+ylabel("Acceleration (g) normalised about 0");
+title("Vertical Aacceleration Plot");
+
+hor_acc = figure;
+figure(hor_acc);
+plot(t, resolved_data(:,2));
+xlabel("Time (s)");
+ylabel("Acceleration (g) normalised about 0");
+title("Horizontal Acceleration Plot");
 
 
 

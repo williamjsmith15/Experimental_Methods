@@ -3,7 +3,7 @@ close all
 
 %------INPUT DATA------
 fprintf("Select the raw data file to be analysed.\n")
-[fname_data, path_data] = uigetfile('*.csv')
+[fname_data, path_data] = uigetfile('*.csv');
 fprintf("Opening %s\n\n", fname_data)
 raw_data = table2array(readtable(fullfile(path_data, fname_data)));
 

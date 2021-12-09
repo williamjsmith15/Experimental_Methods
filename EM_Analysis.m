@@ -1,4 +1,4 @@
-%------IMPORT DATA------
+%------IMPORT DATA & CALIBRATION------
 %Import the calibration file folder
 fprintf("Select the folder all the calibration files are in.\n")
 path_cal = uigetdir('*.csv');
@@ -15,12 +15,6 @@ end
 %Divide by number of elements to get mean
 cal_matrix = cal_matrix / length(files_calibration);
 
-%Import data files - Single file case
-% fprintf("Select the raw data file to be analysed.\n")
-% [fname_data, path_data] = uigetfile('*.csv');
-% fprintf("Opening %s\n\n", fname_data)
-% raw_data = table2array(readtable(fullfile(path_data, fname_data)));
-
 %Sample freq, time period etc
 sample_freq = input("Enter the sampling freq of the data (Hz): ");
 T = 1/sample_freq;
@@ -29,6 +23,7 @@ T = 1/sample_freq;
 fprintf("Select the folder containing data files to be analysed (make sure they are all .csv, all have same sampling freq)\n");
 path_data = uigetdir('*.csv');
 files_data = dir(fullfile(path_data, '*.csv'));
+
 
 for i = 1:length(files_data) %Loop through all .csv files in folder
     fname_data = files_data(i).name;
@@ -205,5 +200,7 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
     writetable(temp_table, fullfile(path_data, append(fname, ' Output File.csv')));
 
 end
+
+
 
 

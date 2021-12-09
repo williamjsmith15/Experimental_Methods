@@ -9,7 +9,8 @@ function [fft_x, fft_y, principal_freq, peaks] = spectral_analysis(data, sample_
 L = length(data); %Length of data
 
 %Following method in MATLAB documentation for this function
-freq_data = fft(data);
+%Add hann window to data whilst doing the FFT
+freq_data = fft(hann(L).*data);
 
 P2 = abs(freq_data/L); %2 Sided spectrum
 fft_y = P2(1:floor(L/2+1)); %1 Sided spectrum based on P2 and even-valued L

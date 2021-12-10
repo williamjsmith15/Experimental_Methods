@@ -24,6 +24,8 @@ fprintf("Select the folder containing data files to be analysed (make sure they 
 path_data = uigetdir('*.csv');
 files_data = dir(fullfile(path_data, '*.csv'));
 
+%Pre-Declare Matrix for Uncertainty Analysis
+output_data = zeros(length(files_data), 4);
 
 for i = 1:length(files_data) %Loop through all .csv files in folder
     fname_data = files_data(i).name;
@@ -36,10 +38,6 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
     %same freq
     L = length(raw_data(:,1)); %Length of data
     t = (0:L-1) * T; %Time vector (s)
-
-    %Close all prev figures, stops cluttering of desktop
-    close all
-
 
 
     %------APPLY CALIBRATION------
@@ -198,9 +196,21 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
     %Save rest of data manually in .csv file after error analysis
     temp_table = table(hor_acc_max, hor_principal_freq(1,2), ver_acc_max, ver_principal_freq(1,2), 'VariableNames', {'Horizontal Acceleration Max', 'Horizontal Principal Frequency', 'Vertical Acceleration Max', 'Vertical Principal Frequency'});
     writetable(temp_table, fullfile(path_data, append(fname, ' Output File.csv')));
-
+    output_data(i,:) = [hor_acc_max, hor_principal_freq(1,2), ver_acc_max, ver_principal_freq(1,2)];
+    
+    %Close all open figures
+    close all;
 end
 
+%------ERROR ANALYSIS------
+%Write the uncertainty analysis output into a temp matrix
+temp = zeros(2,4);
+for i = 1:4
+    temp(:,i) = uncertainty_analysis(output_data(:,i));
+end
 
+%Save matrix into file folder
+temp_table = table(temp(:,1), temp(:,2), temp(:,3), temp(:,4), 'VariableNames', {'Horizontal Acceleration Max', 'Horizontal Principal Frequency', 'Vertical Acceleration Max', 'Vertical Principal Frequency'});
+writetable(temp_table, fullfile(path_data, 'Statistical Analysis Output.csv'));
 
 

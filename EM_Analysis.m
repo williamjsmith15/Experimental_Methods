@@ -117,7 +117,7 @@ for i = 1:length(files_data) %Loop through all .csv files in folder
     grid on;
     xlabel("Time (s)");
     ylabel("Acceleration (g) normalised about 0");
-    title("Vertical Aacceleration Plot");
+    title("Vertical Acceleration Plot");
     
     hor_acc = figure;
     figure(hor_acc);

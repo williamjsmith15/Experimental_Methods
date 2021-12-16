@@ -25,13 +25,22 @@ data = data * 9.80665; %Convert 'gs' to ms^-1
 
 %Assign peaks into an array with their corresponding time value
 peaks = zeros(length(pks), 2);
+av_acc = mean(pks);
+std_acc = std(pks);
+
 for i = 1:length(pks)
-    peaks(i,1) = pks(i);
-    peaks(i,2) = t(locs(i));
+    % Add in if statement for outlier removal using Chauvenet;s Criterion
+    if abs((pks(i) - av_acc) / std_acc) < 1
+        peaks(i,1) = pks(i);
+        peaks(i,2) = t(locs(i));
+    end
 end
+% Remove non-zero values from matrix (better perfomrance wise than
+% dynamically allocating the matrix size in the for loop
+peaks = nonzeros(peaks);
 
 %Average and maximum
-av_acc = mean(pks);
-max_acc = max(pks);
+av_acc = mean(peaks(:,1));
+max_acc = max(peaks(:,1));
 end
 
